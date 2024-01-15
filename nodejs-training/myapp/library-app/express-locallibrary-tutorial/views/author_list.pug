@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each author in author_list
+      li
+        a(href=author.url) #{author.name}
+        if author.dob_formatted.length > 0 && author.dod_formatted.length > 0
+          |  (#{author.dob_formatted} - #{author.dod_formatted})
+        else if author.dob_formatted == 0 && author.dod_formatted == 0
+          |  (no life span data)
+        else if author.dob_formatted.length > 0 && author.dod_formatted.length == 0
+          |  (#{author.dob_formatted} - still alive or unknown)
+        else if author.dob_formatted.length == 0 && author.dod_formatted.length > 0
+          |  (Unknown - #{author.dod_formatted})
+
+    else
+      li There are no authors.

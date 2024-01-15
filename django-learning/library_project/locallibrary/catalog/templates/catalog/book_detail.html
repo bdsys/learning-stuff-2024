@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>Local Library - Book details</title>{% endblock %}
+
+{% block content %}
+  <h1>Title: {{ book.title }}</h1>
+
+  <p><strong>Author:</strong> <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p> 
+  <p><strong>Summary:</strong> {{ book.summary }}</p>
+  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+  <p><strong>Language:</strong> {{ book.language }}</p>
+  <!--var | join:"" used to create a variably joined list, like a CSV as seen below-->
+  <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
+  
+  {% if perms.catalog.can_update_book %}- <a href="{% url 'book-update' book.id %}">Update</a>  {% endif %}
+  {% if perms.catalog.can_delete_book %}- <a href="{% url 'book-delete' book.id %}">Delete</a>  {% endif %}
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+    
+    <!--(foriegn key downstream dependancy model name)_set.all method is "automagically" constructed by Django in order to return the set of BookInstance records associated with a particular Book.-->
+    <!--Note the .all = all(). .filter could be used in the same way-->
+    
+    {% for copy in book.bookinstance_set.all %}
+      <hr>
+      <!--The below paragraph tag is dynamically setting a CSS class-->
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ copy.get_status_display }}
+        <!--Note the "get_FOO_display" is an automatically created method for "choice" type fields in a model-->
+      </p>
+      {% if copy.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+      {% endif %}
+      <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
+      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}

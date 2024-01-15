@@ -1,0 +1,20 @@
+/*Takes "<ul class="sidebar-nav">" from base_generic.html and modifies it*/
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.small-paragraph {
+    font-size: 14px;
+}
+
+.tiny-hidden-thing {
+    opacity: 0.10;
+    font-size: 5px;
+}
+
+.bottom-portion {
+    opacity: 0.60;
+    font-size: 14px;
+}

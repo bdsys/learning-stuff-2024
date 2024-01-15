@@ -1,0 +1,37 @@
+{% extends "base_generic.html" %}
+
+<!--Override "title" block in base_generic.html-->
+{% block title %}
+<title>Local Library - Catalog</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Local Library Home</h1>
+  
+  <p>Welcome to LocalLibrary, a website developed by <b></b><em>Black Dog Systems</em></b>!</p>
+  <div class="small-paragraph">
+  <p><em>In partnership with Mozilla Developer Network (MDN)</em></p>
+  </div>
+  
+  
+  <h2>Dynamic content</h2>
+  
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Genres:</strong> {{num_genres}}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+  
+  <div class="tiny-hidden-thing">
+      <p>You know what, I wasn't going to keep this here. But, now I am. And it's tiny. Because why not.</p>
+      <p>Odd challenge thing shoud be 3 and is....: {{genre_by_specific}}</p>
+  </div>
+  
+  <!--Note that "|pluarlize" tag will automatically pluarlize words when >1-->
+  <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+
+  
+{% endblock %}

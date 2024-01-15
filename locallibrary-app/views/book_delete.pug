@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  p #[strong Author: ]
+    a(href=book.author.url) #{book.author.name}
+  p #[strong Summary:] #{book.summary}
+  p #[strong ISBN:] #{book.isbn}
+  p #[strong Genre: ]
+    each val, index in book.genre
+      a(href=val.url) #{val.name}
+      if index < book.genre.length - 1
+        |,
+
+  if books_bookinstances.length
+
+    p #[strong Delete the following bookinstances before attempting to delete this book.]
+
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4 Bookinstances
+
+      dl
+      each books_bookinstance in books_bookinstances
+       dt
+        dd
+          if books_bookinstance.status=='Available'
+            span.text-success #{books_bookinstance.status}
+          else if book.status=='Maintenance'
+            span.text-danger #{books_bookinstance.status}
+          else
+            span.text-warning #{books_bookinstance.status}
+          
+        dd #[strong Imprint: ] #{books_bookinstance.book.summary}
+        dd #[strong Id: ]
+          a(href=book.url) #{books_bookinstance._id}
+        dd #[Due back: ] #{books_bookinstance.due_back_formatted}
+
+  else
+    p Do you really want to delete this Book?
+
+    form(method='POST' action='')
+      div.form-group
+        input#bookid.form-control(type='hidden',name='bookid', required='true', value=book._id )
+
+      button.btn.btn-primary(type='submit') Delete
+      
+  if custom_errors
+   br
+   p The following issues were found with your submission:
+   ul
+    for custom_error in custom_errors
+      li!= custom_error

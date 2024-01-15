@@ -1,0 +1,31 @@
+extends layout
+
+block content
+
+  h1 Author: #{author.name}
+  
+  if author.dob_formatted.length > 0 && author.dod_formatted.length > 0
+    p #{author.dob_formatted} - #{author.dod_formatted} - Age: #{author.age}
+  else if author.dob_formatted == 0 && author.dod_formatted == 0
+    p no life span data
+  else if author.dob_formatted.length > 0 && author.dod_formatted.length == 0
+    p #{author.dob_formatted} - still alive or unknown - Age: #{author.age}
+  else if author.dob_formatted.length == 0 && author.dod_formatted.length > 0
+    p Unknown - #{author.dod_formatted}
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 Books
+
+    dl
+      each book in author_books
+        dt
+          a(href=book.url) #{book.title}
+        dd #{book.summary}
+
+      else
+        p This author has no books.
+        
+  hr
+  p
+    a(href = author.url+'/delete') Delete author

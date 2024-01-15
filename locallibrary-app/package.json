@@ -1,0 +1,36 @@
+{
+  "name": "express-locallibrary-tutorial",
+  "version": "0.0.0",
+  "engines": {
+    "node": "10.23.2"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
+    "prod:start:monitor": "pm2-runtime start bin/www --name library",
+    "prod:start:background": "pm2 start bin/www --name library"
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "aws-xray-sdk": "1.1.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-validator": "^6.10.0",
+    "forever": "^3.0.4",
+    "forever-monitor": "^3.0.3",
+    "helmet": "^4.4.1",
+    "http-errors": "~1.6.3",
+    "luxon": "^1.26.0",
+    "mongoose": "^5.11.18",
+    "morgan": "~1.9.1",
+    "newrelic": "^7.1.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
